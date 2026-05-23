@@ -8,12 +8,12 @@
 # Pin a version:
 #   curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.1.0 sh
 #
-# Install to a user-writable directory:
+# Install to a specific directory:
 #   CLEOTIC_INSTALL_DIR="$HOME/.local/bin" sh install.sh
 #
 # Respects:
 #   CLEOTIC_VERSION      Release version to install. Defaults to latest.
-#   CLEOTIC_INSTALL_DIR  Destination directory. Defaults to /usr/local/bin.
+#   CLEOTIC_INSTALL_DIR  Destination directory. Defaults to $HOME/.local/bin.
 #   CLEOTIC_REPO         GitHub repo for release assets. Defaults to generaldataworks/cleotic-cli.
 #   CLEOTIC_BASE_URL     Full base URL for release assets. Used for testing/staging.
 #
@@ -22,7 +22,6 @@ set -eu
 default_repo="generaldataworks/cleotic-cli"
 repo="${CLEOTIC_REPO:-$default_repo}"
 version="${CLEOTIC_VERSION:-latest}"
-install_dir="${CLEOTIC_INSTALL_DIR:-/usr/local/bin}"
 base_url="${CLEOTIC_BASE_URL:-}"
 
 log() {
@@ -32,6 +31,11 @@ log() {
 fail() {
   printf 'error: %s\n' "$*" >&2
   exit 1
+}
+
+default_install_dir() {
+  [ -n "${HOME:-}" ] || fail "HOME is not set. Set CLEOTIC_INSTALL_DIR to a directory you can write to."
+  printf '%s\n' "$HOME/.local/bin"
 }
 
 need() {
@@ -126,7 +130,7 @@ Usage:
 
 Environment:
   CLEOTIC_VERSION      Release version to install. Defaults to latest.
-  CLEOTIC_INSTALL_DIR  Destination directory. Defaults to /usr/local/bin.
+  CLEOTIC_INSTALL_DIR  Destination directory. Defaults to \$HOME/.local/bin.
   CLEOTIC_REPO         GitHub repo for release assets. Defaults to ${default_repo}.
   CLEOTIC_BASE_URL     Full base URL for release assets. Used for testing/staging.
 
@@ -150,6 +154,10 @@ esac
 
 platform="$(detect_os)"
 arch="$(detect_arch)"
+install_dir="${CLEOTIC_INSTALL_DIR:-}"
+if [ -z "$install_dir" ]; then
+  install_dir="$(default_install_dir)"
+fi
 
 need tar
 need awk
