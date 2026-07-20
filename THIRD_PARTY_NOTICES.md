@@ -20,6 +20,7 @@ The Cleotic CLI includes third-party open source software.
 | github.com/clipperhouse/uax29/v2/graphemes | MIT | https://github.com/clipperhouse/uax29/blob/v2.6.0/LICENSE |
 | github.com/dustin/go-humanize | MIT | https://github.com/dustin/go-humanize/blob/v1.0.1/LICENSE |
 | github.com/godbus/dbus/v5 | BSD-2-Clause | https://github.com/godbus/dbus/blob/v5.2.2/LICENSE |
+| github.com/gofrs/flock | BSD-3-Clause | https://github.com/gofrs/flock/blob/v0.13.0/LICENSE |
 | github.com/google/uuid | BSD-3-Clause | https://github.com/google/uuid/blob/v1.6.0/LICENSE |
 | github.com/lucasb-eyer/go-colorful | MIT | https://github.com/lucasb-eyer/go-colorful/blob/v1.2.0/LICENSE |
 | github.com/mattn/go-isatty | MIT | https://github.com/mattn/go-isatty/blob/v0.0.20/LICENSE |
