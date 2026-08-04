@@ -35,6 +35,7 @@ The Cleotic CLI includes third-party open source software.
 | github.com/spf13/pflag | BSD-3-Clause | https://github.com/spf13/pflag/blob/v1.0.9/LICENSE |
 | github.com/xo/terminfo | MIT | https://github.com/xo/terminfo/blob/abceb7e1c41e/LICENSE |
 | github.com/zalando/go-keyring | MIT | https://github.com/zalando/go-keyring/blob/v0.2.8/LICENSE |
+| golang.org/x/mod/semver | BSD-3-Clause | https://cs.opensource.google/go/x/mod/+/v0.33.0:LICENSE |
 | golang.org/x/sync/errgroup | BSD-3-Clause | https://cs.opensource.google/go/x/sync/+/v0.19.0:LICENSE |
 | golang.org/x/sys/unix | BSD-3-Clause | https://cs.opensource.google/go/x/sys/+/v0.44.0:LICENSE |
 | golang.org/x/term | BSD-3-Clause | https://cs.opensource.google/go/x/term/+/v0.43.0:LICENSE |

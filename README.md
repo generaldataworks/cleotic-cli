@@ -2,10 +2,10 @@
 
 Command line tools for Cleotic.
 
-The 0.2 release makes the CLI fully read-write: sign in from your
-terminal as your Cleotic user, set up a project end to end, and create,
-inspect, and delete projects, brands, monitors, and prompts — from a
-shell, a script, or an AI agent.
+The 0.3 release adds built-in updates, making it easier to keep Cleotic
+current from your terminal. You can still use the CLI interactively, in
+scripts, or through an AI agent to manage projects, brands, monitors,
+and prompts.
 
 ## Install
 
@@ -18,7 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/i
 Install a specific release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.2.0 sh
+curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.3.0 sh
 ```
 
 Install to a different directory (default is `$HOME/.local/bin`):
@@ -26,6 +26,38 @@ Install to a different directory (default is `$HOME/.local/bin`):
 ```sh
 curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_INSTALL_DIR="$HOME/bin" sh
 ```
+
+## Keep Cleotic up to date
+
+Run the update command whenever you want Cleotic to check for a newer
+release:
+
+```sh
+cleotic update
+```
+
+If an update is available, Cleotic shows the new version and asks whether
+you want to install it. You can also choose a mode that suits how you are
+using the CLI:
+
+```sh
+# Check without installing anything
+cleotic update --check
+
+# Install an available update without a confirmation prompt
+cleotic update --yes
+
+# Get a machine-readable check result for a script or agent
+cleotic update --check --json
+
+# Install non-interactively and return a machine-readable result
+cleotic update --yes --json --no-input
+```
+
+During normal interactive use, Cleotic also checks occasionally and prints
+a short notice when a new version is available. These background checks do
+not run with `--json`, `--no-input`, piped output, or in CI. Set
+`CLEOTIC_NO_UPDATE_CHECK=1` if you prefer to turn them off entirely.
 
 ## Log in
 
@@ -119,10 +151,10 @@ and `x86_64`.
 The release asset filenames include the CLI version:
 
 ```text
-cleotic_0.2.0_mac-os_arm64.tar.gz
-cleotic_0.2.0_mac-os_x86_64.tar.gz
-cleotic_0.2.0_linux_arm64.tar.gz
-cleotic_0.2.0_linux_x86_64.tar.gz
+cleotic_0.3.0_mac-os_arm64.tar.gz
+cleotic_0.3.0_mac-os_x86_64.tar.gz
+cleotic_0.3.0_linux_arm64.tar.gz
+cleotic_0.3.0_linux_x86_64.tar.gz
 ```
 
 Each archive has a matching `.sha256` checksum file.
