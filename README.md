@@ -2,10 +2,10 @@
 
 Command line tools for Cleotic.
 
-The 0.3 release adds built-in updates, making it easier to keep Cleotic
-current from your terminal. You can still use the CLI interactively, in
-scripts, or through an AI agent to manage projects, brands, monitors,
-and prompts.
+The 0.4 release organizes your work into brands and studies, with
+commands for each brand's primary brand and competitors. Use the CLI
+interactively, in scripts, or through an AI agent to manage brands,
+competitors, monitors, and prompts.
 
 ## Install
 
@@ -18,7 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/i
 Install a specific release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.3.0 sh
+curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.4.0 sh
 ```
 
 Install to a different directory (default is `$HOME/.local/bin`):
@@ -86,32 +86,47 @@ CLEOTIC_API_KEY=... cleotic projects list --json
 
 ## Common Workflows
 
+Cleotic organizes your work into **brands** and **studies**. Each brand
+tracks one primary brand and its competitors. Behind every brand or study
+is a project: its project ID is what `--project`, `cleotic projects use`,
+and the `default_project_id` setting expect.
+
 ```sh
-# First-time setup: create a project, brand, and monitor in one go
+# First-time setup: create a brand and its first monitor in one go
 cleotic setup
+cleotic setup --no-input --brand-name "Acme" --brand-domain acme.com
 
 # Read
-cleotic projects list
+cleotic brands list
+cleotic studies list
+cleotic projects list                      # every brand and study
 cleotic projects show <project-id>
 cleotic projects summary <project-id>
-cleotic brands list --project <project-id>
+cleotic primary-brand show --project <project-id>
+cleotic competitors list --project <project-id>
 cleotic monitors list --project <project-id>
 cleotic prompts list --monitor <monitor-id>
 
 # Write
-cleotic projects create --name "Acme"
 cleotic projects use <project-id>
-cleotic brands create --name "Acme" --domain acme.com --primary
-cleotic monitors create --name "Acme AI visibility"
+cleotic primary-brand set --name "Acme" --domain acme.com --alias "Acme Inc"
+cleotic primary-brand set --competitor <competitor-id>   # promote a competitor
+cleotic competitors create --name "Rival" --domain rival.com
+cleotic competitors update <competitor-id> --alias "Rival Co"
+cleotic monitors create --name "Acme AI visibility" --model openai:consumer
 cleotic prompts create --monitor <monitor-id> --text "best crm for smb"
 cleotic prompts run --monitor <monitor-id> --prompt <prompt-id>
 
 # Delete (asks for confirmation; --yes skips it)
 cleotic prompts delete <prompt-id> --monitor <monitor-id>
 cleotic monitors delete <monitor-id> --yes
-cleotic brands delete <brand-id> --project <project-id>
+cleotic competitors delete <competitor-id> --project <project-id>
 cleotic projects delete <project-id>
 ```
+
+Promoting a competitor makes it the primary brand and turns the previous
+primary brand into a competitor. `--alias` replaces the existing alias
+list.
 
 ## Scripting
 
@@ -137,7 +152,7 @@ wins:
 | env | `CLEOTIC_API_URL` | Cleotic API URL |
 | env | `CLEOTIC_API_KEY` | API-key auth for CI/automation; overrides any browser login |
 | config | `api_url` | Persistent API URL (`cleotic config set api-url <url>`) |
-| config | `default_project_id` | Default project (`cleotic projects use <id>`) |
+| config | `default_project_id` | Default brand or study project (`cleotic projects use <id>`) |
 
 The config file lives at `~/.config/cleotic/config.yaml` (honoring
 `XDG_CONFIG_HOME`). Browser-login tokens are never written there — they
@@ -151,10 +166,10 @@ and `x86_64`.
 The release asset filenames include the CLI version:
 
 ```text
-cleotic_0.3.0_mac-os_arm64.tar.gz
-cleotic_0.3.0_mac-os_x86_64.tar.gz
-cleotic_0.3.0_linux_arm64.tar.gz
-cleotic_0.3.0_linux_x86_64.tar.gz
+cleotic_0.4.0_mac-os_arm64.tar.gz
+cleotic_0.4.0_mac-os_x86_64.tar.gz
+cleotic_0.4.0_linux_arm64.tar.gz
+cleotic_0.4.0_linux_x86_64.tar.gz
 ```
 
 Each archive has a matching `.sha256` checksum file.
