@@ -110,7 +110,6 @@ cleotic prompts list --monitor <monitor-id>
 # Write
 cleotic projects use <project-id>
 cleotic primary-brand set --name "Acme" --domain acme.com --alias "Acme Inc"
-cleotic primary-brand set --competitor <competitor-id>   # promote a competitor
 cleotic competitors create --name "Rival" --domain rival.com
 cleotic competitors update <competitor-id> --alias "Rival Co"
 cleotic monitors create --name "Acme AI visibility" --model openai:consumer
@@ -124,9 +123,7 @@ cleotic competitors delete <competitor-id> --project <project-id>
 cleotic projects delete <project-id>
 ```
 
-Promoting a competitor makes it the primary brand and turns the previous
-primary brand into a competitor. `--alias` replaces the existing alias
-list.
+`--alias` replaces the existing alias list.
 
 ## Scripting
 
