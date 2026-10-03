@@ -2,10 +2,10 @@
 
 Command line tools for Cleotic.
 
-The 0.4 release organizes your work into brands and studies, with
-commands for each brand's primary brand and competitors. Use the CLI
-interactively, in scripts, or through an AI agent to manage brands,
-competitors, monitors, and prompts.
+Cleotic organizes your work into brands and studies, with commands for
+each brand's primary brand and competitors. Use the CLI interactively,
+in scripts, or through an AI agent to manage brands, competitors,
+monitors, and prompts.
 
 ## Install
 
@@ -18,7 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/i
 Install a specific release:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.4.0 sh
+curl -fsSL https://raw.githubusercontent.com/generaldataworks/cleotic-cli/main/install.sh | CLEOTIC_VERSION=v0.5.0 sh
 ```
 
 Install to a different directory (default is `$HOME/.local/bin`):
@@ -65,12 +65,16 @@ not run with `--json`, `--no-input`, piped output, or in CI. Set
 cleotic auth login
 ```
 
-Login opens your browser (or prints a URL and one-time code to enter on
-another device) and signs you in as your Cleotic user. Tokens are stored
-in your OS keychain and refreshed automatically. If you belong to
-multiple organizations you'll be asked to pick one; `--org <id>`
-preselects it. `cleotic auth status` shows the active session and
-`cleotic auth logout` removes the local tokens.
+Login opens your browser and signs you in as your Cleotic user. Tokens
+are stored in your OS keychain and refreshed automatically. Over SSH, or
+anywhere without a local browser, the CLI prints a link to open on any
+device and asks you to paste the code shown after you sign in; pass
+`--no-browser` to choose this yourself.
+
+The CLI uses the organization you're signed in to in the browser. To
+choose another, run `cleotic auth login --change-org`: you sign in again
+and pick the organization. `cleotic auth status` shows the active session
+and `cleotic auth logout` removes the local tokens.
 
 If your organization still needs to accept Cleotic's Terms and
 Conditions, the CLI opens the web app, waits for you to accept, and
@@ -112,9 +116,8 @@ cleotic projects use <project-id>
 cleotic primary-brand set --name "Acme" --domain acme.com --alias "Acme Inc"
 cleotic competitors create --name "Rival" --domain rival.com
 cleotic competitors update <competitor-id> --alias "Rival Co"
-cleotic monitors create --name "Acme AI visibility" --model openai:consumer
+cleotic monitors create --name "Acme AI visibility"
 cleotic prompts create --monitor <monitor-id> --text "best crm for smb"
-cleotic prompts run --monitor <monitor-id> --prompt <prompt-id>
 
 # Delete (asks for confirmation; --yes skips it)
 cleotic prompts delete <prompt-id> --monitor <monitor-id>
@@ -163,10 +166,10 @@ and `x86_64`.
 The release asset filenames include the CLI version:
 
 ```text
-cleotic_0.4.0_mac-os_arm64.tar.gz
-cleotic_0.4.0_mac-os_x86_64.tar.gz
-cleotic_0.4.0_linux_arm64.tar.gz
-cleotic_0.4.0_linux_x86_64.tar.gz
+cleotic_0.5.0_mac-os_arm64.tar.gz
+cleotic_0.5.0_mac-os_x86_64.tar.gz
+cleotic_0.5.0_linux_arm64.tar.gz
+cleotic_0.5.0_linux_x86_64.tar.gz
 ```
 
 Each archive has a matching `.sha256` checksum file.
